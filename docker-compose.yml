@@ -3,24 +3,21 @@ version: '3'
 services:
   web1:
     build: ./web
-    ports:
-      - 9001:9000
     volumes:
       - ./web/server.js:/usr/app/server.js
   web2:
     build: ./web
-    ports:
-      - 9002:9000
     volumes:
       - ./web/server.js:/usr/app/server.js
   web3:
     build: ./web
-    ports:
-      - 9003:9000
     volumes:
       - ./web/server.js:/usr/app/server.js
   proxy:
     build: ./proxy
+    environment:
+      - SERVICES=web1 web2 web3
+      - PORT=9000
     ports:
       - 9000:9000
     volumes:
