@@ -5,20 +5,26 @@ services:
     build: ./web
     volumes:
       - ./web/server.js:/usr/app/server.js
+    environment:
+      - LOAD_BALANCER=proxy
   web2:
     build: ./web
     volumes:
       - ./web/server.js:/usr/app/server.js
+    environment:
+      - LOAD_BALANCER=proxy
   web3:
     build: ./web
     volumes:
       - ./web/server.js:/usr/app/server.js
+    environment:
+      - LOAD_BALANCER=proxy
   proxy:
     build: ./proxy
     environment:
-      - SERVICES=web1 web2 web3
       - PORT=9000
     ports:
       - 9000:9000
     volumes:
       - ./proxy/server.js:/usr/app/server.js
+
